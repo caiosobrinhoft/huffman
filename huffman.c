@@ -337,7 +337,7 @@ void escrever_no_arquivo(char *string){
 //descompacta um arquivo binario, percorrendo a arvore e ate encontrar um no folha
 //apos encontrar, armazena o char do no folha na string criada
 void descompactar(No *raiz){
-    FILE *arquivo = fopen("compactado.bin", "rb");
+    FILE *arquivo = fopen("compactado.huf", "rb");
     No *aux = raiz;
     unsigned char byte;
     int i;

@@ -7,11 +7,11 @@
 
 int main(){
     FILE *input, *output;
-    No *arvore;
-    Lista lista;
+    No *arvore, *arvore_descompactacao;
+    Lista lista, lista_descompactacao;
     int colunas;
     char **dicionario;
-    char *codificado;
+    char *codificado, *decodificado;
 
     unsigned char *texto;
     unsigned int tabela[TAM];
@@ -57,6 +57,7 @@ int main(){
             compactacao(codificado, tamanho_tabela, tabela); //compacta o arquivo e ja cria o cabeçalho
             break;
         case 2:
+            descompactar(arvore_descompactacao);
             break;
         default:
             free(codificado);
