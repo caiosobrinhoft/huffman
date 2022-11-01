@@ -255,7 +255,7 @@ char *decodificacao(No *raiz, unsigned char *str){
 //FUNCOES PARA COMPACTAÇÃO E DESCOMPACTAÇÃO
 
 //compactar arquivo
-void compactacao(unsigned char *str){
+void compactacao(unsigned char *str, int tamanho, unsigned int *tabela){
 	FILE *arquivo = fopen("compactado.huf", "wb"); // Aqui será feito a escrita(compactação) em um arquivo binário.
 	unsigned char byte = 0, deslocamento;
 	int i = 0, j = 7;
@@ -265,6 +265,8 @@ void compactacao(unsigned char *str){
 	}
 
 	else{
+        fprintf(arquivo, "%d\n", tamanho);
+        header_tabela_freq(tabela, arquivo);
 		while(str[i] != '\0'){ // Vou pegar apenas os caracteres do arquivo/string.
 			deslocamento = 1; // Usado para o deslocamento.
 			if(str[i] == '1'){
@@ -429,6 +431,17 @@ void imprimir_tabela_freq(unsigned int *tabela){
 	for(i = 0; i < TAM; i++){
 		if(tabela[i] > 0){
 			printf("%5d\t%8c\n", tabela[i], i);
+		}
+	}
+	// Quando o "i" é inteiro, ele vai imprimir os índices da tabela, quando o meu "i" for do tipo char, ele vai imprimir os símbolos correspodentes da tabela ascii. Por fim, a "tabela_freq[i]" mostra quantas repetições existem de cada caracter.
+}
+
+void header_tabela_freq(unsigned int *tabela, FILE *arquivo){
+	int i = 0;
+	
+	for(i = 0; i < TAM; i++){
+		if(tabela[i] > 0){
+			fprintf(arquivo, "%c\t%d\n", i, tabela[i]);
 		}
 	}
 	// Quando o "i" é inteiro, ele vai imprimir os índices da tabela, quando o meu "i" for do tipo char, ele vai imprimir os símbolos correspodentes da tabela ascii. Por fim, a "tabela_freq[i]" mostra quantas repetições existem de cada caracter.

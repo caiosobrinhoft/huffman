@@ -32,6 +32,8 @@ int main(){
             inicializa_lista(&lista);
             preencher_lista(&lista, tabela);
             imprimir_lista(&lista);
+            int tamanho_tabela;
+            tamanho_tabela = (sizeof(tabela)/256)-1;
 
             arvore = criar_arvore(&lista);
             printf("\n\tArvore de huffman\n");
@@ -52,7 +54,7 @@ int main(){
         switch (op)
         {
         case 1:
-            compactacao(codificado);
+            compactacao(codificado, tamanho_tabela, tabela); //compacta o arquivo e ja cria o cabeçalho
             break;
         case 2:
             break;

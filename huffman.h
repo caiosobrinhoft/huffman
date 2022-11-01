@@ -20,6 +20,7 @@ void iniciar_tabela_freq(unsigned int *tabela);
 void preencher_tabela_freq(unsigned int *tabela, unsigned char *str);
 void imprimir_tabela_ascii(unsigned int *tabela);
 void imprimir_tabela_freq(unsigned int *tabela);
+void header_tabela_freq(unsigned int *tabela, FILE *arquivo);
 
 //FUNCOES LISTA ENCADEADA
 void inicializa_lista(Lista *lista);
@@ -48,7 +49,7 @@ char *codificacao(char **dicionario, unsigned char *str);
 char *decodificacao(No *raiz, unsigned char *str);
 
 //FUNCOES PARA COMPACTAÇÃO E DESCOMPACTAÇÃO
-void compactacao(unsigned char *str);
+void compactacao(unsigned char *str, int tamanho, unsigned int *tabela);
 unsigned int eh_bit_um(unsigned char byte, int i);
 int descobrir_tamanho_arquivo_bin(No* raiz);
 void escrever_no_arquivo(char *string);
