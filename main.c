@@ -11,46 +11,61 @@ int main(){
     Lista lista;
     int colunas;
     char **dicionario;
-    char *codificado, *decodificado;
+    char *codificado;
 
     unsigned char *texto;
     unsigned int tabela[TAM];
     int pos;
+    int op;
 
     input = fopen("texto.txt","r");
-    fseek(input, 0, SEEK_END);
-    pos = ftell(input);
-    texto = malloc(pos*sizeof(unsigned char));
-    fseek(input, 0, SEEK_SET);
-    fread(texto, 1, pos, input);
+            fseek(input, 0, SEEK_END);
+            pos = ftell(input);
+            texto = malloc(pos*sizeof(unsigned char));
+            fseek(input, 0, SEEK_SET);
+            fread(texto, 1, pos, input);
+            
+            iniciar_tabela_freq(tabela);
+            preencher_tabela_freq(tabela, texto);
+            imprimir_tabela_freq(tabela);
+
+            inicializa_lista(&lista);
+            preencher_lista(&lista, tabela);
+            imprimir_lista(&lista);
+
+            arvore = criar_arvore(&lista);
+            printf("\n\tArvore de huffman\n");
+            imprimir_arvore(arvore, 0);
+            colunas = altura_da_arvore(arvore)+1;
+            dicionario = aloca_dicionario(colunas);
+            criar_dicionario(dicionario, arvore, "", colunas);
+            imprimir_dicionario(dicionario);
+
+            codificado = codificacao(dicionario, texto);
+
+    do{
+        printf("\nDigite a opcao que deseja ");
+        printf("\n 1 - Comprimir arquivo");
+        printf("\n 2 - Descomprimir arquivo");
+        printf("\n 3 - Sair\n");
+        scanf("%d", &op);
+        switch (op)
+        {
+        case 1:
+            compactacao(codificado);
+            break;
+        case 2:
+            break;
+        default:
+            free(codificado);
+            libera_arvore(arvore);
+            libera_dicionario(dicionario);
+            libera_lista(&lista);
+            fclose(input);
+            break;
+        }
+    }while(op != 3);
+
     
-    iniciar_tabela_freq(tabela);
-    preencher_tabela_freq(tabela, texto);
-    imprimir_tabela_freq(tabela);
-
-    inicializa_lista(&lista);
-    preencher_lista(&lista, tabela);
-    imprimir_lista(&lista);
-
-    arvore = criar_arvore(&lista);
-    printf("\n\tArvore de huffman\n");
-    imprimir_arvore(arvore, 0);
-    colunas = altura_da_arvore(arvore)+1;
-    dicionario = aloca_dicionario(colunas);
-    criar_dicionario(dicionario, arvore, "", colunas);
-    imprimir_dicionario(dicionario);
-
-    codificado = codificacao(dicionario, texto);
-    printf("\nTexto codificado: %s\n", codificado);
-    escrever_no_arquivo(texto);
-
-    free(codificado);
-   //free(decodificado);
-    libera_arvore(arvore);
-    libera_dicionario(dicionario);
-    libera_lista(&lista);
-    fclose(input);
-    //fclose(output);
-
     return(0);
 }

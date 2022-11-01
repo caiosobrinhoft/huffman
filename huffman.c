@@ -256,7 +256,7 @@ char *decodificacao(No *raiz, unsigned char *str){
 
 //compactar arquivo
 void compactacao(unsigned char *str){
-	FILE *arquivo = fopen("compactado.bin", "wb"); // Aqui será feito a escrita(compactação) em um arquivo binário.
+	FILE *arquivo = fopen("compactado.huf", "wb"); // Aqui será feito a escrita(compactação) em um arquivo binário.
 	unsigned char byte = 0, deslocamento;
 	int i = 0, j = 7;
 
@@ -327,7 +327,7 @@ int descobrir_tamanho_arquivo_bin(No* raiz){
 
 //escreve ou cria um arquivo txt com a string passada por parametro
 void escrever_no_arquivo(char *string){
-    FILE* arquivo = fopen("saida.txt", "w");
+    FILE* arquivo = fopen("saida.huf", "w");
     fprintf(arquivo, "%s", string);
     fclose(arquivo);
 }
